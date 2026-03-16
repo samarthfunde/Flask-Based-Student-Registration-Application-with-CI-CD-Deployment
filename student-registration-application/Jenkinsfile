@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Clone Repo') {
+        stage('Clone Repository') {
             steps {
                 git 'https://github.com/samarthfunde/Flask-Based-Student-Registration-Application-with-CI-CD-Deployment.git'
             }
@@ -11,14 +11,20 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip3 install -r requirements.txt'
+                sh '''
+                sudo yum install python3-pip -y
+                pip3 install -r requirements.txt
+                '''
             }
         }
 
-        stage('Run App') {
+        stage('Deploy Application') {
             steps {
-                sh 'nohup python3 app.py &'
+                sh '''
+                nohup python3 app.py > app.log 2>&1 &
+                '''
             }
         }
+
     }
 }
