@@ -1,0 +1,31 @@
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/samarthfunde/Flask-Based-Student-Registration-Application-with-CI-CD-Deployment.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                sudo yum install python3-pip -y
+                pip3 install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                sh '''
+                nohup python3 app.py > app.log 2>&1 &
+                '''
+            }
+        }
+
+    }
+}
