@@ -1,7 +1,6 @@
 pipeline {
 agent { label 'flask' }
 
-```
 stages {
 
     stage('Run Flask App') {
@@ -14,6 +13,6 @@ stages {
     }
 
 }
-```
+
 
 }
