@@ -1,17 +1,19 @@
 pipeline {
-    agent { label 'flask' }
+agent { label 'flask' }
 
-    stages {
+```
+stages {
 
-        stage('Run Flask App') {
-            steps {
-                sh '''
-                cd student-registration-app
-                pkill -f app.py || true
-                nohup python3 app.py > output.log 2>&1 &
-                '''
-            }
+    stage('Run Flask App') {
+        steps {
+            sh '''
+            pkill -f app.py || true
+            nohup python3 app.py > output.log 2>&1 &
+            '''
         }
-
     }
+
+}
+```
+
 }
