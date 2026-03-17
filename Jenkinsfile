@@ -1,20 +1,15 @@
 pipeline {
-    agent any
+    agent { label 'flask' }
 
     stages {
 
-        stage('Deploy to Flask Server') {
+        stage('Run Flask App') {
             steps {
-                sshagent(['flask-server-key']) {
-                    sh '''
-                    scp -o StrictHostKeyChecking=no app.py ec2-user@FLASK_PUBLIC_IP:/home/ec2-user/
-
-                    ssh -o StrictHostKeyChecking=no ec2-user@FLASK_PUBLIC_IP << EOF
-                    pkill -f app.py
-                    nohup python3 app.py > output.log 2>&1 &
-                    EOF
-                    '''
-                }
+                sh '''
+                cd student-registration-app
+                pkill -f app.py || true
+                nohup python3 app.py > output.log 2>&1 &
+                '''
             }
         }
 
