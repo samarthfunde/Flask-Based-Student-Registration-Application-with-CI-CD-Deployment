@@ -1,6 +1,7 @@
 pipeline {
 agent { label 'flask' }
 
+
 stages {
 
     stage('Install Dependencies') {
@@ -17,7 +18,7 @@ stages {
             sh '''
             cd student-registration-application
             pkill -f app.py || true
-            nohup /usr/bin/python3 app.py > flask.log 2>&1 &
+            setsid /usr/bin/python3 app.py > flask.log 2>&1 &
             '''
         }
     }
