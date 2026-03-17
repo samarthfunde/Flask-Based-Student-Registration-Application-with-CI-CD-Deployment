@@ -1,29 +1,21 @@
 pipeline {
 agent { label 'flask' }
 
-
+```
 stages {
-
-    stage('Install Dependencies') {
-        steps {
-            sh '''
-            cd student-registration-application
-            pip3 install -r requirements.txt
-            '''
-        }
-    }
 
     stage('Run Flask App') {
         steps {
             sh '''
-            cd student-registration-application
+            cd /home/ec2-user/workspace/jenkins-pipeline/student-registration-application
             pkill -f app.py || true
-            nohup python3 app.py > output.log 2>&1 &
+            nohup python3 app.py > flask.log 2>&1 &
+            disown
             '''
         }
     }
 
 }
-
+```
 
 }
