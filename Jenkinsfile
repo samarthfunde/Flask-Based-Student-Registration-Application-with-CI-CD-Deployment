@@ -1,7 +1,6 @@
 pipeline {
 agent { label 'flask' }
 
-```
 stages {
 
     stage('Install Dependencies') {
@@ -24,6 +23,5 @@ stages {
     }
 
 }
-```
 
 }
