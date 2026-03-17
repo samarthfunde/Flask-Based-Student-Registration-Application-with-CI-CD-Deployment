@@ -4,26 +4,29 @@ agent { label 'flask' }
 
 stages {
 
+    stage('Checkout Code') {
+        steps {
+            git 'https://github.com/samarthfunde/Flask-Based-Student-Registration-Application-with-CI-CD-Deployment.git'
+        }
+    }
+
     stage('Install Dependencies') {
         steps {
             sh '''
-            cd /home/ec2-user/workspace/jenkins-pipeline/student-registration-application
-            /usr/bin/pip3 install -r requirements.txt
+            cd student-registration-application
+            pip3 install -r requirements.txt
             '''
         }
     }
 
-    stage('Deploy Flask App') {
+    stage('Restart Flask Service') {
         steps {
             sh '''
-            cd /home/ec2-user/workspace/jenkins-pipeline/student-registration-application
-            pkill -f app.py || true
-            nohup /usr/bin/python3 /home/ec2-user/workspace/jenkins-pipeline/student-registration-application/app.py > flask.log 2>&1 &
+            sudo systemctl restart flaskapp
             '''
         }
     }
 
 }
-
 
 }
