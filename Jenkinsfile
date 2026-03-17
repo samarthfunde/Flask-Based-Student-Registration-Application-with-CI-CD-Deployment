@@ -4,6 +4,15 @@ agent { label 'flask' }
 
 stages {
 
+    stage('Install Dependencies') {
+        steps {
+            sh '''
+            cd student-registration-application
+            pip3 install -r requirements.txt
+            '''
+        }
+    }
+
     stage('Run Flask App') {
         steps {
             sh '''
